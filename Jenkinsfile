@@ -1,27 +1,27 @@
-pipeline{
-
+pipeline {
   agent any
-
-  tools{
-    maven 'Mave 3.6.3'
-  }
-
-  stages{
-    stage('build'){
-      steps{
+  stages {
+    stage('build') {
+      steps {
         sh 'mvn compile'
       }
     }
-    stage('test'){
-      steps{
+
+    stage('test') {
+      steps {
         sh 'mvn clean test'
       }
     }
-    stage('package'){
-      steps{
+
+    stage('package') {
+      steps {
         sh 'mvn package -DskipTests'
+        archiveArtifacts 'target/*.war'
       }
     }
-  }
 
+  }
+  tools {
+    maven 'Mave 3.6.3'
+  }
 }
