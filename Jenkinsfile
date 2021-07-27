@@ -19,7 +19,7 @@ pipeline{
     }
     stage('package'){
       steps{
-        mvn package -DskipTests
+        MVN package -DskipTests
       }
     }
   }
