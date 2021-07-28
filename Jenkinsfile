@@ -1,12 +1,5 @@
 pipeline {
   agent none
-  parameters {
-    booleanParam(name: "RELEASE", defaultValue: false)
-  }
-  
-  if (${env.BRANCH_NAME} == "master") {
-    params.RELEASE == true
-  }
   
   stages {
     stage('build') {
@@ -34,7 +27,10 @@ pipeline {
     }
 
     stage('package') {
-      when { expression { params.RELEASE } }
+      when {
+                // Only run on master branch
+                expression { ${env.BRANCH_NAME} == 'master' }
+            }
       agent {
         docker {
           image 'maven:3.6.3-jdk-11-slim'
@@ -48,7 +44,10 @@ pipeline {
     }
 
     stage('Docker BnP') {
-      when { expression { params.RELEASE } }
+      when {
+                // Only run on master branch
+                expression { ${env.BRANCH_NAME} == 'master' }
+            }
       agent any
       steps {
         script {
