@@ -1,5 +1,13 @@
 pipeline {
   agent none
+  parameters {
+    booleanParam(name: "RELEASE", defaultValue: false)
+  }
+  
+  if (${env.BRANCH_NAME} == "master") {
+    params.RELEASE == true
+  }
+  
   stages {
     stage('build') {
       agent {
@@ -26,6 +34,7 @@ pipeline {
     }
 
     stage('package') {
+      when { expression { params.RELEASE } }
       agent {
         docker {
           image 'maven:3.6.3-jdk-11-slim'
@@ -39,6 +48,7 @@ pipeline {
     }
 
     stage('Docker BnP') {
+      when { expression { params.RELEASE } }
       agent any
       steps {
         script {
