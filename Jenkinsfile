@@ -46,7 +46,7 @@ pipeline {
     stage('Docker BnP') {
       when {
                 // Only run on master branch
-                expression { ${env.BRANCH_NAME} == 'master' }
+                expression { env.BRANCH_NAME == 'master' }
             }
       agent any
       steps {
