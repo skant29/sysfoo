@@ -74,7 +74,6 @@ pipeline {
         sh 'docker-compose up -d'
       }
     }
-
   }
   tools {
     maven 'Mave 3.6.3'
