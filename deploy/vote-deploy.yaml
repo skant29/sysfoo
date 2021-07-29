@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: sysfoo
+  name: sysfoo
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: sysfoo
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: sysfoo
+    spec:
+      containers:
+      - image: skant29/sysfoo
+        name: sysfoo
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
